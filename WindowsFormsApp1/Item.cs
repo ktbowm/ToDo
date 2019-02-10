@@ -16,7 +16,7 @@ namespace WindowsFormsApp1
         private string itemDetails;
         private bool itemIsComplete;
         private DateTime itemDueDate;
-        private ArrayList itemTags; //change tags to List type (or other)?
+        private List<Tag> itemTags; //change tags to List type (or other)?
 
         //getters and setters (encapsulates variables)
         public int ItemId { get => itemId; set => itemId = value; }
@@ -24,10 +24,10 @@ namespace WindowsFormsApp1
         public string ItemDetails { get => itemDetails; set => itemDetails = value; }
         public bool ItemIsComplete { get => itemIsComplete; set => itemIsComplete = value; }
         public DateTime ItemDueDate { get => itemDueDate; set => itemDueDate = value; }
-        public ArrayList ItemTags { get => itemTags; set => itemTags = value; }
+        public List<Tag> ItemTags { get => itemTags; set => itemTags = value; }
 
         //paramaterized constructor
-        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, ArrayList itemTags)
+        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, List<Tag> itemTags)
         {
             ItemId = itemId;
             ItemText = itemText;
@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
             ItemDetails = "Item Details";
             ItemIsComplete = false;
             ItemDueDate = DateTime.Now.AddDays(1); //change to another time? (default is tomorrow)
-            ItemTags = new ArrayList();
+            ItemTags = new List<Tag>();
         }
 
         //copy constructor
@@ -80,7 +80,7 @@ namespace WindowsFormsApp1
             }
             else
             {
-                Console.WriteLine("Item does not have this tag");
+                Console.WriteLine("Item does not have this tag.");
             } 
         }
 

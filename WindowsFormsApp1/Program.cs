@@ -23,17 +23,19 @@ namespace WindowsFormsApp1
             Tag t1 = new Tag();
             Tag t2 = new Tag(2, "daily", "occurs every day");
             Tag t3 = new Tag();
-            ArrayList tagList = new ArrayList();
-            ArrayList tagList2 = new ArrayList();
+            List<Tag> tagList = new List<Tag>();
+            List<Tag> tagList2 = new List<Tag>();
             tagList.Add(t1);
             tagList.Add(t2);
             tagList2.Add(t2);
 
             Item i1 = new Item();
             Item i2 = new Item(2, "i2 text", "i2 details", true, DateTime.Now, tagList);
-            Item i3 = new Item(i1);
-            i3.ItemText = "i3 text";
-            i3.ItemDetails = "i3 details";
+            Item i3 = new Item(i1)
+            {
+                ItemText = "i3 text",
+                ItemDetails = "i3 details"
+            };
             i3.ItemTags.Clear();
             i3.ItemTags = tagList2;
             i2.RemoveTagFromItem(t3);
