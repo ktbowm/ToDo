@@ -41,29 +41,9 @@ namespace WindowsFormsApp1
             i2.RemoveTagFromItem(t3);
             i2.RemoveTagFromItem(t2);
 
-            Console.WriteLine("i1 id: {0}", i1.ItemId);
-            Console.WriteLine("i1 text: {0}", i1.ItemText);
-            Console.WriteLine("i1 details: {0}", i1.ItemDetails);
-            Console.WriteLine("i1 is complete: {0}", i1.ItemIsComplete);
-            Console.WriteLine("i1 due date: {0}", i1.ItemDueDate);
-            Console.WriteLine("i1 tags: ");
-            i1.ListAllItemTagValues();
-
-            Console.WriteLine("i2 id: {0}", i2.ItemId);
-            Console.WriteLine("i2 text: {0}", i2.ItemText);
-            Console.WriteLine("i2 details: {0}", i2.ItemDetails);
-            Console.WriteLine("i2 is complete: {0}", i2.ItemIsComplete);
-            Console.WriteLine("i2 due date: {0}", i2.ItemDueDate);
-            Console.WriteLine("i2 tags: ");
-            i2.ListAllItemTagValues();
-
-            Console.WriteLine("i3 id: {0}", i3.ItemId);
-            Console.WriteLine("i3 text: {0}", i3.ItemText);
-            Console.WriteLine("i3 details: {0}", i3.ItemDetails);
-            Console.WriteLine("i3 is complete: {0}", i3.ItemIsComplete);
-            Console.WriteLine("i3 due date: {0}", i3.ItemDueDate);
-            Console.WriteLine("i3 tags: ");
-            i3.ListAllItemTagValues();
+            i1.PrintAllItemValues();
+            i2.PrintAllItemValues();
+            i3.PrintAllItemValues();
             //testing end
 
         }

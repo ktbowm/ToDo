@@ -60,6 +60,7 @@ namespace WindowsFormsApp1
         }
 
         //class functions (move some/all of these to tag class?)
+        //add and remove tags
         public void AddTagToItem(Tag tag)
         {
             if(ItemTags.Contains(tag))
@@ -84,7 +85,18 @@ namespace WindowsFormsApp1
             } 
         }
 
-        public void ListAllItemTagNames()
+        //data output functions
+        public void PrintAllItemValues()
+        {
+            Console.WriteLine("Item Id: {0}", ItemId);
+            Console.WriteLine("Item Text: {0}", ItemText);
+            Console.WriteLine("Item Details: {0}", ItemDetails);
+            Console.WriteLine("Item Is Complete: {0}", ItemIsComplete);
+            Console.WriteLine("Item Due Date: {0}", ItemDueDate);
+            PrintAllItemTagValues();
+        }
+
+        public void PrintAllItemTagNames()
         {
             if (ItemTags.Count > 0) {
                 foreach (Tag item in ItemTags)
@@ -98,7 +110,7 @@ namespace WindowsFormsApp1
             
         }
 
-        public void ListAllItemTagValues()
+        public void PrintAllItemTagValues()
         {
             if (ItemTags.Count > 0)
             {
