@@ -22,12 +22,12 @@ namespace WindowsFormsApp1
         internal LinkedList<Item> ItemListIncompleteItems { get => itemListIncompleteItems; set => itemListIncompleteItems = value; }
 
         //parameterized constructor
-        public ItemList(int itemListId, string itemListName, string itemListDetails, Boolean itemListIsComplete, LinkedList<Item> itemListCompleteItems, LinkedList<Item> itemListIncompleteItems)
+        public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListCompleteItems, LinkedList<Item> itemListIncompleteItems)
         {
             ItemListId = itemListId;
             ItemListName = itemListName;
             ItemListDetails = itemListDetails;
-            ItemListIsComplete = itemListIsComplete;
+            ItemListIsComplete = (itemListIncompleteItems.Count == 0) ? true : false;
             ItemListCompleteItems = itemListCompleteItems;
             ItemListIncompleteItems = itemListIncompleteItems;
         }
@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
             ItemListId = 0; //change to make sure id will be unique
             ItemListName = "Item List";
             ItemListDetails = "Item List Details";
-            ItemListIsComplete = true; //assumes list is empty
+            ItemListIsComplete = true;
             ItemListCompleteItems = new LinkedList<Item>();
             ItemListIncompleteItems = new LinkedList<Item>();
 
@@ -47,7 +47,7 @@ namespace WindowsFormsApp1
         //class functions
         public void AddItemToList(Item item)
         {
-            if(itemListCompleteItems.Contains(item) || itemListIncompleteItems.Contains(item))
+            if(ItemListCompleteItems.Contains(item) || ItemListIncompleteItems.Contains(item))
             {
                 Console.WriteLine("This list already contains this item.");
             }
@@ -61,12 +61,13 @@ namespace WindowsFormsApp1
                 {
                     ItemListIncompleteItems.AddLast(item); //change to different add method? this adds to end of list
                 }
+                ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
             }
         }
 
         public void RemoveItemFromList(Item item)
         {
-            if (itemListCompleteItems.Contains(item) || itemListIncompleteItems.Contains(item))
+            if (ItemListCompleteItems.Contains(item) || ItemListIncompleteItems.Contains(item))
             {
                 if (item.ItemIsComplete)
                 {
@@ -76,6 +77,7 @@ namespace WindowsFormsApp1
                 {
                     ItemListIncompleteItems.Remove(item);
                 }
+                ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
             }
             else
             {
