@@ -60,6 +60,11 @@ namespace WindowsFormsApp1
         }
 
         //class functions (move some/all of these to tag class?)
+        public void CheckItem()
+        {
+            ItemIsComplete = ItemIsComplete ? false : true;
+        }
+
         //add and remove tags
         public void AddTagToItem(Tag tag)
         {

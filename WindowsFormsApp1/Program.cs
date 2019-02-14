@@ -19,7 +19,13 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
+            //list of all item lists (track whole lists instead of just items so when they are consolidated they maintain their order)
+            List<ItemList> allItemLists = new List<ItemList>();
+            
             //testing begin
+            Console.WriteLine();
+            Console.WriteLine("Testing Begin: ");
+
             //tags
             Tag t1 = new Tag();
             Tag t2 = new Tag(2, "daily", "occurs every day");
@@ -44,27 +50,47 @@ namespace WindowsFormsApp1
             i2.RemoveTagFromItem(t2);
 
             //item lists
-            ItemList l1 = new ItemList();
+            ItemList l1 = new ItemList(allItemLists);
             l1.AddItemToList(i1);
             l1.AddItemToList(i2);
             l1.AddItemToList(i3);
             l1.RemoveItemFromList(i1);
-            LinkedList<Item> l2complete = new LinkedList<Item>();
-            LinkedList<Item> l2incomplete = new LinkedList<Item>();
-            l2complete.AddLast(i2);
-            l2incomplete.AddLast(i1);
-            ItemList l2 = new ItemList(2, "List 2", "List 2 Details", l2complete, l2incomplete);
+
+            //checking items
+            i2.CheckItem();
+            i3.CheckItem();
+
+            LinkedList<Item> l2items = new LinkedList<Item>();
+            l2items.AddLast(i2);
+            l2items.AddLast(i1);
+            ItemList l2 = new ItemList(2, "List 2", "List 2 Details", l2items, allItemLists);
+            l2.RemoveItemFromList(i3);
             l2.AddItemToList(i3);
+            l2.AddItemToList(i3);
+
+            Console.WriteLine();
 
             //output data
             Console.WriteLine("Test Items Output: ");
             i1.PrintAllItemValues();
             i2.PrintAllItemValues();
             i3.PrintAllItemValues();
+
             Console.WriteLine();
             Console.WriteLine("Test Lists Output: ");
             l1.PrintAllItemListValues();
             l2.PrintAllItemListValues();
+
+            Console.WriteLine();
+            Console.WriteLine("All items list output: ");
+            foreach (ItemList itemList in allItemLists)
+            {
+                itemList.PrintAllItemListItems();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("End of testing.");
+            Console.WriteLine();
             //testing end
 
         }

@@ -22,18 +22,29 @@ namespace WindowsFormsApp1
         internal LinkedList<Item> ItemListIncompleteItems { get => itemListIncompleteItems; set => itemListIncompleteItems = value; }
 
         //parameterized constructor
-        public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListCompleteItems, LinkedList<Item> itemListIncompleteItems)
+        public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListItems, List<ItemList> allItemLists)
         {
             ItemListId = itemListId;
             ItemListName = itemListName;
             ItemListDetails = itemListDetails;
+            ItemListCompleteItems = new LinkedList<Item>();
+            ItemListIncompleteItems = new LinkedList<Item>();
+            foreach (Item item in itemListItems)
+            {
+                if(item.ItemIsComplete)
+                {
+                    ItemListCompleteItems.AddLast(item);
+                } else
+                {
+                    ItemListIncompleteItems.AddLast(item);
+                }
+            }
             ItemListIsComplete = (itemListIncompleteItems.Count == 0) ? true : false;
-            ItemListCompleteItems = itemListCompleteItems;
-            ItemListIncompleteItems = itemListIncompleteItems;
+            allItemLists.Add(this);
         }
 
         //default constructor
-        public ItemList()
+        public ItemList(List<ItemList> allItemLists)
         {
             ItemListId = 0; //change to make sure id will be unique
             ItemListName = "Item List";
@@ -41,6 +52,7 @@ namespace WindowsFormsApp1
             ItemListIsComplete = true;
             ItemListCompleteItems = new LinkedList<Item>();
             ItemListIncompleteItems = new LinkedList<Item>();
+            allItemLists.Add(this);
 
         }
 
