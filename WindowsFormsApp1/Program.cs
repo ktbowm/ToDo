@@ -36,9 +36,11 @@ namespace WindowsFormsApp1
             tagList.Add(t2);
             tagList2.Add(t2);
 
+            ItemList l1 = new ItemList(allItemLists);
+
             //items
-            Item i1 = new Item();
-            Item i2 = new Item(2, "i2 text", "i2 details", true, DateTime.Now, tagList);
+            Item i1 = new Item(l1);
+            Item i2 = new Item(2, "i2 text", "i2 details", true, DateTime.Now, l1, tagList);
             Item i3 = new Item(i1)
             {
                 ItemText = "i3 text",
@@ -50,23 +52,20 @@ namespace WindowsFormsApp1
             i2.RemoveTagFromItem(t2);
 
             //item lists
-            ItemList l1 = new ItemList(allItemLists);
             l1.AddItemToList(i1);
             l1.AddItemToList(i2);
             l1.AddItemToList(i3);
             l1.RemoveItemFromList(i1);
 
-            //checking items
-            i2.CheckItem();
-            i3.CheckItem();
-
             LinkedList<Item> l2items = new LinkedList<Item>();
             l2items.AddLast(i2);
             l2items.AddLast(i1);
             ItemList l2 = new ItemList(2, "List 2", "List 2 Details", l2items, allItemLists);
-            l2.RemoveItemFromList(i3);
-            l2.AddItemToList(i3);
-            l2.AddItemToList(i3);
+            i3.MoveItemToAnotherList(l2);
+
+            //checking items
+            i2.CheckItem();
+            i3.CheckItem();
 
             Console.WriteLine();
 

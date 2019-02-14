@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
         private string itemDetails;
         private bool itemIsComplete;
         private DateTime itemDueDate;
+        private ItemList itemBelongsToList;
         private List<Tag> itemTags; //change tags to List type (or other)?
 
         //getters and setters (encapsulates variables)
@@ -24,28 +25,31 @@ namespace WindowsFormsApp1
         public string ItemDetails { get => itemDetails; set => itemDetails = value; }
         public bool ItemIsComplete { get => itemIsComplete; set => itemIsComplete = value; }
         public DateTime ItemDueDate { get => itemDueDate; set => itemDueDate = value; }
+        internal ItemList ItemBelongsToList { get => itemBelongsToList; set => itemBelongsToList = value; }
         public List<Tag> ItemTags { get => itemTags; set => itemTags = value; }
 
         //paramaterized constructor
-        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, List<Tag> itemTags)
+        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, ItemList itemBelongsToList, List<Tag> itemTags)
         {
             ItemId = itemId;
             ItemText = itemText;
             ItemDetails = itemDetails;
             ItemIsComplete = itemIsComplete;
             ItemDueDate = itemDueDate;
+            ItemBelongsToList = itemBelongsToList;
             ItemTags = itemTags;
         }
 
         //default constructor
-        public Item()
+        public Item(ItemList itemBelongsToList)
         {
             ItemId = 0; //change to make sure id will be unique
             ItemText = "Item Text";
             ItemDetails = "Item Details";
             ItemIsComplete = false;
-            ItemDueDate = DateTime.Now.AddDays(1); //change to another time? (default is tomorrow)
-            ItemTags = new List<Tag>();
+            ItemDueDate = DateTime.Now.AddDays(1); //change to another time? (default is tomorrow)/let user set a default?
+            ItemBelongsToList = itemBelongsToList;
+            ItemTags = new List<Tag>(); 
         }
 
         //copy constructor
@@ -57,12 +61,21 @@ namespace WindowsFormsApp1
             ItemIsComplete = item.itemIsComplete;
             ItemDueDate = item.itemDueDate;
             ItemTags = item.itemTags;
+            ItemBelongsToList = item.itemBelongsToList; //want to change this so list is the destination of the item's copy?
         }
 
         //class functions (move some/all of these to tag class?)
         public void CheckItem()
         {
             ItemIsComplete = ItemIsComplete ? false : true;
+            ItemBelongsToList.UpdateListCompletionAfterItemCheck(this);
+        }
+
+        public void MoveItemToAnotherList(ItemList newList)
+        {
+            ItemBelongsToList.RemoveItemFromList(this);
+            ItemBelongsToList = newList;
+            ItemBelongsToList.AddItemToList(this);
         }
 
         //add and remove tags
