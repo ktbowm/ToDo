@@ -31,8 +31,8 @@ namespace WindowsFormsApp1
             ItemListIncompleteItems = new LinkedList<Item>();
             foreach (Item item in itemListItems)
             {
-                if(item.ItemBelongsToList == this)
-                {
+                if(item.ItemBelongsToList == this) //use AddItemToList function instead and remove this check?
+                {  
                     if (item.ItemIsComplete)
                     {
                         ItemListCompleteItems.AddLast(item);
