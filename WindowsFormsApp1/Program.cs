@@ -21,10 +21,13 @@ namespace WindowsFormsApp1
 
             //list of all item lists (track whole lists instead of just items so when they are consolidated they maintain their order)
             List<ItemList> allItemLists = new List<ItemList>();
-            
+            //consolidated lists of all complete and incomplete items
+            List<Item> allCompleteItems = new List<Item>();
+            List<Item> allIncompleteItems = new List<Item>();
+
             //testing begin
             Console.WriteLine();
-            Console.WriteLine("Testing Begin: ");
+            Console.WriteLine("Testing Begin:");
 
             //tags
             Tag t1 = new Tag();
@@ -69,21 +72,41 @@ namespace WindowsFormsApp1
             Console.WriteLine();
 
             //output data
-            Console.WriteLine("Test Items Output: ");
+            Console.WriteLine("Test Items Output:");
             i1.PrintAllItemValues();
             i2.PrintAllItemValues();
             i3.PrintAllItemValues();
 
             Console.WriteLine();
-            Console.WriteLine("Test Lists Output: ");
+            Console.WriteLine("Test Lists Output:");
             l1.PrintAllItemListValues();
             l2.PrintAllItemListValues();
 
             Console.WriteLine();
-            Console.WriteLine("All items list output: ");
+
+            //consolidate all items into complete and incomplete lists
             foreach (ItemList itemList in allItemLists)
             {
-                itemList.PrintAllItemListItems();
+                foreach(Item item in itemList.ItemListCompleteItems)
+                {
+                    allCompleteItems.Add(item);
+                }
+                foreach (Item item in itemList.ItemListIncompleteItems)
+                {
+                    allIncompleteItems.Add(item);
+                }
+            }
+
+            Console.WriteLine("All items list output:");
+            Console.WriteLine("All complete items:");
+            foreach (Item item in allCompleteItems)
+            {
+                Console.WriteLine(item.ItemText);
+            }
+            Console.WriteLine("All incomplete items:");
+            foreach (Item item in allIncompleteItems)
+            {
+                Console.WriteLine(item.ItemText);
             }
 
             Console.WriteLine();
