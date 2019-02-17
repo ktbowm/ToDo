@@ -85,9 +85,33 @@ namespace WindowsFormsApp1
             Console.WriteLine();
 
             //consolidate all items into complete and incomplete lists
+            Console.WriteLine("All items list output:");
+            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
+            PrintAllConsolidatedItems(allCompleteItems, allIncompleteItems);
+
+            //delete functions
+            i1.DeleteItem();
+            l1.DeleteItemList(allItemLists);
+
+            Console.WriteLine();
+            Console.WriteLine("All items changed list output:");
+            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
+            PrintAllConsolidatedItems(allCompleteItems, allIncompleteItems);
+
+            Console.WriteLine();
+            Console.WriteLine("End of testing.");
+            Console.WriteLine();
+            //testing end
+
+        }
+
+        public static void ConsolidateAllItems(List<ItemList> allItemLists, List<Item> allCompleteItems, List<Item> allIncompleteItems)
+        {
+            allCompleteItems.Clear();
+            allIncompleteItems.Clear();
             foreach (ItemList itemList in allItemLists)
             {
-                foreach(Item item in itemList.ItemListCompleteItems)
+                foreach (Item item in itemList.ItemListCompleteItems)
                 {
                     allCompleteItems.Add(item);
                 }
@@ -96,8 +120,10 @@ namespace WindowsFormsApp1
                     allIncompleteItems.Add(item);
                 }
             }
+        }
 
-            Console.WriteLine("All items list output:");
+        public static void PrintAllConsolidatedItems(List<Item> allCompleteItems, List<Item> allIncompleteItems)
+        {
             Console.WriteLine("All complete items:");
             foreach (Item item in allCompleteItems)
             {
@@ -108,12 +134,6 @@ namespace WindowsFormsApp1
             {
                 Console.WriteLine(item.ItemText);
             }
-
-            Console.WriteLine();
-            Console.WriteLine("End of testing.");
-            Console.WriteLine();
-            //testing end
-
         }
     }
 }

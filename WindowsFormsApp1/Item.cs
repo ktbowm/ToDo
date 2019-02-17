@@ -64,7 +64,7 @@ namespace WindowsFormsApp1
             ItemBelongsToList = null; //want to change this so list is the destination of the item's copy?
         }
 
-        //class functions (move some/all of these to tag class?)
+        //class functions
         public void CheckItem()
         {
             ItemIsComplete = !ItemIsComplete;
@@ -79,7 +79,17 @@ namespace WindowsFormsApp1
             newList.AddItemToList(this);
         }
 
-        //add and remove tags
+        public void DeleteItem()
+        {
+            if(ItemBelongsToList != null)
+            {
+                ItemBelongsToList.RemoveItemFromList(this);
+            }
+            //remove item from stored data
+            //account for the item's id no longer being in use?
+        }
+
+        //add and remove tags (move some/all of these to tag class?)
         public void AddTagToItem(Tag tag)
         {
             if(ItemTags.Contains(tag))

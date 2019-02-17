@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
             {
                 if (item.ItemBelongsToList == null)
                 {
-                    this.AddItemToList(item);
+                    AddItemToList(item);
                 }
                 else
                 {
@@ -115,6 +115,29 @@ namespace WindowsFormsApp1
                 ItemListIncompleteItems.AddLast(item);
             }
             ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
+        }
+
+        public void DeleteItemList(List<ItemList> allItemLists)
+        {
+            if (ItemListCompleteItems.Count > 0)
+            {
+                foreach (Item item in ItemListCompleteItems)
+                {
+                    item.ItemBelongsToList = null; //this will prevent unnecessary RemoveItemFromList call in DeleteItem function (it is unnecessary to update list values since entire list is being deleted)
+                    item.DeleteItem();
+                }
+            }
+            if (ItemListIncompleteItems.Count > 0)
+            {
+                foreach (Item item in ItemListIncompleteItems)
+                {
+                    item.ItemBelongsToList = null; //this will prevent unnecessary RemoveItemFromList call in DeleteItem function (it is unnecessary to update list values since entire list is being deleted)
+                    item.DeleteItem();
+                }
+            }
+            allItemLists.Remove(this);
+            //remove item list from stored data
+            //account for the item list's id no longer being in use?
         }
 
         //data output functions
