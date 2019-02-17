@@ -31,24 +31,14 @@ namespace WindowsFormsApp1
             ItemListIncompleteItems = new LinkedList<Item>();
             foreach (Item item in itemListItems)
             {
-                if(item.ItemBelongsToList == this) //use AddItemToList function instead and remove this check?
-                {  
-                    if (item.ItemIsComplete)
-                    {
-                        ItemListCompleteItems.AddLast(item);
-                    }
-                    else
-                    {
-                        ItemListIncompleteItems.AddLast(item);
-                    }
-                } else if (item.ItemBelongsToList != null)
+                if (item.ItemBelongsToList == null)
+                {
+                    this.AddItemToList(item);
+                }
+                else
                 {
                     Console.WriteLine("The item {0} belongs to the list {1}.", item.ItemText, item.ItemBelongsToList.ItemListName);
-                } else
-                {
-                    Console.WriteLine("The item {0} does not belong to any list.", item.ItemText);
-                }
-                
+                } 
             }
             ItemListIsComplete = (itemListIncompleteItems.Count == 0) ? true : false;
             allItemLists.Add(this);
@@ -70,11 +60,11 @@ namespace WindowsFormsApp1
         //class functions
         public void AddItemToList(Item item)
         {
-            if(ItemListCompleteItems.Contains(item) || ItemListIncompleteItems.Contains(item))
+            if(item.ItemBelongsToList == this)
             {
                 Console.WriteLine("This list already contains this item.");
             }
-            else if (item.ItemBelongsToList == this) //rearrange if else so this check goes first, add this check to remove function?
+            else if (item.ItemBelongsToList == null) //rearrange if else so this check goes first, add this check to remove function?
             {
                 if (item.ItemIsComplete)
                 {
@@ -84,6 +74,7 @@ namespace WindowsFormsApp1
                 {
                     ItemListIncompleteItems.AddLast(item); //change to different add method? this adds to end of list
                 }
+                item.ItemBelongsToList = this;
                 ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
             } else
             {
@@ -93,7 +84,7 @@ namespace WindowsFormsApp1
 
         public void RemoveItemFromList(Item item)
         {
-            if (ItemListCompleteItems.Contains(item) || ItemListIncompleteItems.Contains(item))
+            if (item.ItemBelongsToList == this)
             {
                 if (item.ItemIsComplete)
                 {
@@ -103,8 +94,8 @@ namespace WindowsFormsApp1
                 {
                     ItemListIncompleteItems.Remove(item);
                 }
-                ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
                 item.ItemBelongsToList = null; //is setting this to null ok? removing from list = deleting item?
+                ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
             }
             else
             {

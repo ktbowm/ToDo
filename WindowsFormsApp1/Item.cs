@@ -29,26 +29,26 @@ namespace WindowsFormsApp1
         public List<Tag> ItemTags { get => itemTags; set => itemTags = value; }
 
         //paramaterized constructor
-        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, ItemList itemBelongsToList, List<Tag> itemTags)
+        public Item(int itemId, string itemText, string itemDetails, bool itemIsComplete, DateTime itemDueDate, List<Tag> itemTags)
         {
             ItemId = itemId;
             ItemText = itemText;
             ItemDetails = itemDetails;
             ItemIsComplete = itemIsComplete;
             ItemDueDate = itemDueDate;
-            ItemBelongsToList = itemBelongsToList;
+            ItemBelongsToList = null;
             ItemTags = itemTags;
         }
 
         //default constructor
-        public Item(ItemList itemBelongsToList)
+        public Item()
         {
             ItemId = 0; //change to make sure id will be unique
             ItemText = "Item Text";
             ItemDetails = "Item Details";
             ItemIsComplete = false;
             ItemDueDate = DateTime.Now.AddDays(1); //change to another time? (default is tomorrow)/let user set a default?
-            ItemBelongsToList = itemBelongsToList;
+            ItemBelongsToList = null;
             ItemTags = new List<Tag>(); 
         }
 
@@ -61,20 +61,19 @@ namespace WindowsFormsApp1
             ItemIsComplete = item.itemIsComplete;
             ItemDueDate = item.itemDueDate;
             ItemTags = item.itemTags;
-            ItemBelongsToList = item.itemBelongsToList; //want to change this so list is the destination of the item's copy?
+            ItemBelongsToList = null; //want to change this so list is the destination of the item's copy?
         }
 
         //class functions (move some/all of these to tag class?)
         public void CheckItem()
         {
-            ItemIsComplete = ItemIsComplete ? false : true;
+            ItemIsComplete = !ItemIsComplete;
             ItemBelongsToList.UpdateListCompletionAfterItemCheck(this);
         }
 
         public void MoveItemToAnotherList(ItemList newList)
         {
             ItemBelongsToList.RemoveItemFromList(this);
-            ItemBelongsToList = newList;
             ItemBelongsToList.AddItemToList(this);
         }
 
@@ -111,6 +110,14 @@ namespace WindowsFormsApp1
             Console.WriteLine("Item Details: {0}", ItemDetails);
             Console.WriteLine("Item Is Complete: {0}", ItemIsComplete);
             Console.WriteLine("Item Due Date: {0}", ItemDueDate);
+            if(ItemBelongsToList != null)
+            {
+                Console.WriteLine("Item Belongs to List: {0}", ItemBelongsToList.ItemListName);
+            }
+            else
+            {
+                Console.WriteLine("This item does not belong to any list.");
+            }
             PrintAllItemTagValues();
         }
 
