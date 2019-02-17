@@ -117,6 +117,33 @@ namespace WindowsFormsApp1
             ItemListIsComplete = (ItemListIncompleteItems.Count == 0) ? true : false;
         }
 
+        //need to finish - will depend how ui works
+        //add visible bool to item class for if an item shows in ui?
+        public void FilterByTag(Tag tag)
+        {
+            foreach (Item item in ItemListCompleteItems)
+            {
+                if(item.ItemTags.Contains(tag))
+                {
+                    //show these items in filtered list
+                } else
+                {
+                    //don't show these items in filtered list
+                }
+            }
+            foreach (Item item in ItemListIncompleteItems)
+            {
+                if (item.ItemTags.Contains(tag))
+                {
+                    //show these items in filtered list
+                }
+                else
+                {
+                    //don't show these items in filtered list
+                }
+            }
+        }
+
         public void DeleteItemList(List<ItemList> allItemLists)
         {
             if (ItemListCompleteItems.Count > 0)

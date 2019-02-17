@@ -86,8 +86,7 @@ namespace WindowsFormsApp1
 
             //consolidate all items into complete and incomplete lists
             Console.WriteLine("All items list output:");
-            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
-            PrintAllConsolidatedItems(allCompleteItems, allIncompleteItems);
+            PrintAllConsolidatedItems(allItemLists, allCompleteItems, allIncompleteItems);
 
             //delete functions
             i1.DeleteItem();
@@ -95,8 +94,7 @@ namespace WindowsFormsApp1
 
             Console.WriteLine();
             Console.WriteLine("All items changed list output:");
-            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
-            PrintAllConsolidatedItems(allCompleteItems, allIncompleteItems);
+            PrintAllConsolidatedItems(allItemLists, allCompleteItems, allIncompleteItems);
 
             Console.WriteLine();
             Console.WriteLine("End of testing.");
@@ -122,8 +120,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static void PrintAllConsolidatedItems(List<Item> allCompleteItems, List<Item> allIncompleteItems)
+        public static void PrintAllConsolidatedItems(List<ItemList> allItemLists, List<Item> allCompleteItems, List<Item> allIncompleteItems)
         {
+            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
             Console.WriteLine("All complete items:");
             foreach (Item item in allCompleteItems)
             {
