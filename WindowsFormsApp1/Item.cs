@@ -73,8 +73,10 @@ namespace WindowsFormsApp1
 
         public void MoveItemToAnotherList(ItemList newList)
         {
-            ItemBelongsToList.RemoveItemFromList(this);
-            ItemBelongsToList.AddItemToList(this);
+            if (ItemBelongsToList != null) {
+                ItemBelongsToList.RemoveItemFromList(this);
+            }
+            newList.AddItemToList(this);
         }
 
         //add and remove tags
