@@ -119,27 +119,32 @@ namespace WindowsFormsApp1
 
         //need to finish - will depend how ui works
         //add visible bool to item class for if an item shows in ui?
-        public void FilterByTag(Tag tag)
+        //will need way of undoing filter
+        public void FilterByTags(List<Tag> tagList)
         {
-            foreach (Item item in ItemListCompleteItems)
+            foreach(Tag tag in tagList)
             {
-                if(item.ItemTags.Contains(tag))
+                foreach (Item item in ItemListCompleteItems)
                 {
-                    //show these items in filtered list
-                } else
-                {
-                    //don't show these items in filtered list
+                    if (item.ItemTags.Contains(tag))
+                    {
+                        //show these items in filtered list
+                    }
+                    else
+                    {
+                        //don't show these items in filtered list
+                    }
                 }
-            }
-            foreach (Item item in ItemListIncompleteItems)
-            {
-                if (item.ItemTags.Contains(tag))
+                foreach (Item item in ItemListIncompleteItems)
                 {
-                    //show these items in filtered list
-                }
-                else
-                {
-                    //don't show these items in filtered list
+                    if (item.ItemTags.Contains(tag))
+                    {
+                        //show these items in filtered list
+                    }
+                    else
+                    {
+                        //don't show these items in filtered list
+                    }
                 }
             }
         }
