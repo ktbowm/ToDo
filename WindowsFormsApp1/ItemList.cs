@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
 
         //must add all created lists to current user
         //parameterized constructor
-        public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListItems, List<ItemList> allItemLists)
+        public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListItems, ItemListCollection allItemLists)
         {
             ItemListId = itemListId;
             ItemListName = itemListName;
@@ -42,11 +42,11 @@ namespace WindowsFormsApp1
                 } 
             }
             ItemListIsComplete = (itemListIncompleteItems.Count == 0) ? true : false;
-            allItemLists.Add(this);
+            allItemLists.AddItemListToCollection(this);
         }
 
         //default constructor
-        public ItemList(List<ItemList> allItemLists)
+        public ItemList(ItemListCollection allItemLists)
         {
             ItemListId = 0; //change to make sure id will be unique
             ItemListName = "Item List";
@@ -54,7 +54,7 @@ namespace WindowsFormsApp1
             ItemListIsComplete = true;
             ItemListCompleteItems = new LinkedList<Item>();
             ItemListIncompleteItems = new LinkedList<Item>();
-            allItemLists.Add(this);
+            allItemLists.AddItemListToCollection(this);
 
         }
 
@@ -150,7 +150,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void DeleteItemList(List<ItemList> allItemLists)
+        public void DeleteItemList(ItemListCollection allItemLists)
         {
             if (ItemListCompleteItems.Count > 0)
             {
@@ -168,7 +168,7 @@ namespace WindowsFormsApp1
                     item.DeleteItem();
                 }
             }
-            allItemLists.Remove(this);
+            allItemLists.RemoveItemListFromCollection(this);
             //remove item list from stored data
             //account for the item list's id no longer being in use?
             //remove item list from current user

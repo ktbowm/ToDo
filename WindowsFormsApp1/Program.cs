@@ -23,10 +23,7 @@ namespace WindowsFormsApp1
             User currentUser = new User(0, "user@email.com", "password");
 
             //list of all item lists (track whole lists instead of just items so when they are consolidated they maintain their order)
-            List<ItemList> allItemLists = new List<ItemList>();
-            //consolidated lists of all complete and incomplete items
-            List<Item> allCompleteItems = new List<Item>();
-            List<Item> allIncompleteItems = new List<Item>();
+            ItemListCollection allItemLists = new ItemListCollection();
 
             //testing begin
             Console.WriteLine();
@@ -89,7 +86,7 @@ namespace WindowsFormsApp1
 
             //consolidate all items into complete and incomplete lists
             Console.WriteLine("All items list output:");
-            PrintAllConsolidatedItems(allItemLists, allCompleteItems, allIncompleteItems);
+            allItemLists.PrintConsolidatedItemListCollection();
 
             //delete functions
             i1.DeleteItem();
@@ -97,12 +94,12 @@ namespace WindowsFormsApp1
 
             Console.WriteLine();
             Console.WriteLine("All items changed list output:");
-            PrintAllConsolidatedItems(allItemLists, allCompleteItems, allIncompleteItems);
+            allItemLists.PrintConsolidatedItemListCollection();
 
             //user testing
             Console.WriteLine();
             Console.WriteLine("User data output:");
-            foreach(ItemList itemList in allItemLists)
+            foreach(ItemList itemList in allItemLists.ItemListCollectionLists)
             {
                 currentUser.AddItemListToUser(itemList.ItemListId);
             }
@@ -113,38 +110,6 @@ namespace WindowsFormsApp1
             Console.WriteLine();
             //testing end
 
-        }
-
-        public static void ConsolidateAllItems(List<ItemList> allItemLists, List<Item> allCompleteItems, List<Item> allIncompleteItems)
-        {
-            allCompleteItems.Clear();
-            allIncompleteItems.Clear();
-            foreach (ItemList itemList in allItemLists)
-            {
-                foreach (Item item in itemList.ItemListCompleteItems)
-                {
-                    allCompleteItems.Add(item);
-                }
-                foreach (Item item in itemList.ItemListIncompleteItems)
-                {
-                    allIncompleteItems.Add(item);
-                }
-            }
-        }
-
-        public static void PrintAllConsolidatedItems(List<ItemList> allItemLists, List<Item> allCompleteItems, List<Item> allIncompleteItems)
-        {
-            ConsolidateAllItems(allItemLists, allCompleteItems, allIncompleteItems);
-            Console.WriteLine("All complete items:");
-            foreach (Item item in allCompleteItems)
-            {
-                Console.WriteLine(item.ItemText);
-            }
-            Console.WriteLine("All incomplete items:");
-            foreach (Item item in allIncompleteItems)
-            {
-                Console.WriteLine(item.ItemText);
-            }
         }
     }
 }

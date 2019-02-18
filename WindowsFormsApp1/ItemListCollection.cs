@@ -21,19 +21,24 @@ namespace WindowsFormsApp1
         //paramaterized constructor
         public ItemListCollection(List<ItemList> itemListCollectionLists)
         {
-            foreach(ItemList itemList in itemListCollectionLists)
+            ItemListCollectionLists = new List<ItemList>();
+            ItemListCollectionAllCompleteItems = new List<Item>();
+            ItemListCollectionAllIncompleteItems = new List<Item>();
+
+            ItemListCollectionLists = itemListCollectionLists;
+            foreach (ItemList itemList in itemListCollectionLists)
             {
                 ItemListCollectionLists.Add(itemList);
-                //initiate complete and incomplete lists?
-                foreach(Item item in itemList.ItemListCompleteItems)
-                {
-                    ItemListCollectionAllCompleteItems.Add(item);
-                }
-                foreach (Item item in itemList.ItemListIncompleteItems)
-                {
-                    ItemListCollectionAllIncompleteItems.Add(item);
-                }
             }
+            ConsolidateItemListCollection();
+        }
+
+        //default constructor
+        public ItemListCollection()
+        {
+            ItemListCollectionLists = new List<ItemList>();
+            ItemListCollectionAllCompleteItems = new List<Item>();
+            ItemListCollectionAllIncompleteItems = new List<Item>();
         }
 
         //class functions
@@ -45,29 +50,31 @@ namespace WindowsFormsApp1
             } else
             {
                 ItemListCollectionLists.Add(itemList);
-                foreach(Item item in itemList.ItemListCompleteItems)
+                //call Consolidate instead?
+                foreach (Item item in itemList.ItemListCompleteItems)
                 {
-                    itemListCollectionAllCompleteItems.Add(item);
+                    ItemListCollectionAllCompleteItems.Add(item);
                 }
                 foreach (Item item in itemList.ItemListIncompleteItems)
                 {
-                    itemListCollectionAllIncompleteItems.Add(item);
+                    ItemListCollectionAllIncompleteItems.Add(item);
                 }
             }
         }
 
-        public void RemoveItemListToCollection(ItemList itemList)
+        public void RemoveItemListFromCollection(ItemList itemList)
         {
             if (ItemListCollectionLists.Contains(itemList))
             {
                 ItemListCollectionLists.Remove(itemList);
+                //call Consolidate instead?
                 foreach (Item item in itemList.ItemListCompleteItems)
                 {
-                    itemListCollectionAllCompleteItems.Remove(item);
+                    ItemListCollectionAllCompleteItems.Remove(item);
                 }
                 foreach (Item item in itemList.ItemListIncompleteItems)
                 {
-                    itemListCollectionAllIncompleteItems.Remove(item);
+                    ItemListCollectionAllIncompleteItems.Remove(item);
                 }
             }
             else
@@ -76,9 +83,27 @@ namespace WindowsFormsApp1
             }
         }
 
+        public void ConsolidateItemListCollection()
+        {
+            ItemListCollectionAllCompleteItems.Clear();
+            ItemListCollectionAllIncompleteItems.Clear();
+            foreach(ItemList itemList in ItemListCollectionLists)
+            {
+                foreach(Item item in itemList.ItemListCompleteItems)
+                {
+                    ItemListCollectionAllCompleteItems.Add(item);
+                }
+                foreach (Item item in itemList.ItemListIncompleteItems)
+                {
+                    ItemListCollectionAllIncompleteItems.Add(item);
+                }
+            }
+        }
+
         //data output functions
         public void PrintConsolidatedItemListCollection()
         {
+            ConsolidateItemListCollection();
             Console.WriteLine("All complete items:");
             foreach (Item item in ItemListCollectionAllCompleteItems)
             {
