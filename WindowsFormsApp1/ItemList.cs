@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
         internal LinkedList<Item> ItemListCompleteItems { get => itemListCompleteItems; set => itemListCompleteItems = value; }
         internal LinkedList<Item> ItemListIncompleteItems { get => itemListIncompleteItems; set => itemListIncompleteItems = value; }
 
+        //must add all created lists to current user
         //parameterized constructor
         public ItemList(int itemListId, string itemListName, string itemListDetails, LinkedList<Item> itemListItems, List<ItemList> allItemLists)
         {
@@ -170,6 +171,7 @@ namespace WindowsFormsApp1
             allItemLists.Remove(this);
             //remove item list from stored data
             //account for the item list's id no longer being in use?
+            //remove item list from current user
         }
 
         //data output functions
