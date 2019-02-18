@@ -49,5 +49,21 @@ namespace WindowsFormsApp1
             //remove stored user data
             //log out
         }
+
+        //data output functions
+        public void PrintAllUserInfo()
+        {
+            Console.WriteLine("User Id: {0}", UserId);
+            Console.WriteLine("User Email: {0}", UserEmail);
+            Console.WriteLine("User Password: {0}", UserPassword);
+            if(UserItemListIds.Count > 0)
+            {
+                Console.WriteLine("User Item Lists Ids:");
+                foreach(int itemListId in UserItemListIds)
+                {
+                    Console.WriteLine(itemListId);
+                }
+            }
+        }
     }
 }

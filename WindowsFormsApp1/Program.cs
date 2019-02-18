@@ -19,6 +19,9 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
+            //current user
+            User currentUser = new User(0, "user@email.com", "password");
+
             //list of all item lists (track whole lists instead of just items so when they are consolidated they maintain their order)
             List<ItemList> allItemLists = new List<ItemList>();
             //consolidated lists of all complete and incomplete items
@@ -95,6 +98,15 @@ namespace WindowsFormsApp1
             Console.WriteLine();
             Console.WriteLine("All items changed list output:");
             PrintAllConsolidatedItems(allItemLists, allCompleteItems, allIncompleteItems);
+
+            //user testing
+            Console.WriteLine();
+            Console.WriteLine("User data output:");
+            foreach(ItemList itemList in allItemLists)
+            {
+                currentUser.AddItemListToUser(itemList.ItemListId);
+            }
+            currentUser.PrintAllUserInfo();
 
             Console.WriteLine();
             Console.WriteLine("End of testing.");
